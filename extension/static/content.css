@@ -1,0 +1,6 @@
+/* Scoped reset so the cat widget doesn't inherit page styles */
+#__virtual_companion_root__ * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}

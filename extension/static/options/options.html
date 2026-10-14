@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Companion — Settings</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 20px; width: 320px; color: #111; }
+    h1 { font-size: 16px; font-weight: 500; margin: 0 0 16px; }
+    h2 { font-size: 12px; font-weight: 500; margin: 18px 0 8px; color: #555; text-transform: uppercase; letter-spacing: 0.04em; }
+    label { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 13px; }
+    label.block { display: block; }
+    input[type=text], input[type=password], input[type=url] {
+      width: 100%; padding: 6px 8px; border: 1px solid #ddd; border-radius: 6px;
+      font-size: 13px; margin-top: 4px; box-sizing: border-box;
+    }
+    .hint { font-size: 11px; color: #888; margin: -4px 0 8px; }
+    button { margin-top: 12px; width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-size: 13px; cursor: pointer; }
+    button:hover { background: #f5f5f5; }
+    #status { font-size: 12px; margin-top: 8px; min-height: 16px; }
+  </style>
+</head>
+<body>
+  <h1>🐱 Virtual Companion</h1>
+
+  <h2>Relay (triage, SMS, WhatsApp)</h2>
+  <label><input type="checkbox" id="src-relay"> Fetch SMS / WhatsApp from relay</label>
+  <label class="block">Relay URL<input type="url" id="relay-url" placeholder="https://virtual-companion-relay.onrender.com"></label>
+  <label class="block">Relay secret<input type="password" id="relay-secret" placeholder="RELAY_READ_SECRET"></label>
+  <p class="hint">Triage runs in the relay so no API key is stored here. Without a relay, the cat scores with keywords.</p>
+
+  <h2>Gmail</h2>
+  <label><input type="checkbox" id="src-gmail"> Enable Gmail</label>
+  <label class="block">OAuth token<input type="password" id="gmail-token" placeholder="ya29.xxxxx"></label>
+  <p class="hint">OAuth Playground, scope <code>gmail.readonly</code>. Use a test account.</p>
+
+  <h2>Linear</h2>
+  <label><input type="checkbox" id="src-linear"> Enable Linear</label>
+  <label class="block">Personal API key<input type="password" id="linear-token" placeholder="lin_api_xxxxx"></label>
+
+  <h2>Jira</h2>
+  <label><input type="checkbox" id="src-jira"> Enable Jira</label>
+  <label class="block">Domain<input type="text" id="jira-domain" placeholder="yourco.atlassian.net"></label>
+  <label class="block">API token (base64 of email:token)<input type="password" id="jira-token"></label>
+
+  <h2>Importance threshold</h2>
+  <label class="block">Only notify at or above: <strong id="threshold-out">6</strong>/10
+    <input type="range" id="threshold" min="1" max="10" step="1" value="6" style="width:100%;margin-top:6px;">
+  </label>
+
+  <button id="save">Save settings</button>
+  <button id="test">Poll now</button>
+  <p id="status"></p>
+
+  <script src="options.js"></script>
+</body>
+</html>
