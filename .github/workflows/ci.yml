@@ -17,4 +17,9 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
+        env:
+          # Injection tests run only when this secret is present.
+          # Add ANTHROPIC_API_KEY in GitHub → Settings → Secrets → Actions.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TRIAGE_MODEL: claude-haiku-4-5-20251001
       - run: npm run build

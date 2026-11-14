@@ -6,11 +6,11 @@ This folder is the point of the project: evidence that LLM triage beats the keyw
 
 `dataset.jsonl` (you write it — `dataset.example.jsonl` shows the format). One synthetic notification per line:
 
-| field | meaning |
-|---|---|
-| `id`, `source`, `title`, `snippet`, `from` | same shape as `NormalisedNotification` |
-| `label` | `urgent` / `normal` / `noise` — your honest judgement |
-| `is_injection` | `true` if the text tries to manipulate the scorer |
+| field                                                | meaning                                                      |
+| ---------------------------------------------------- | ------------------------------------------------------------ |
+| `id`, `source`, `title`, `snippet`, `from` | same shape as `NormalisedNotification`                     |
+| `label`                                            | `urgent` / `normal` / `noise` — your honest judgement |
+| `is_injection`                                     | `true` if the text tries to manipulate the scorer          |
 
 Target: ~150 items across all five sources, ~15 of them injections. Synthetic only — no real inbox content.
 
@@ -32,8 +32,11 @@ Target: ~150 items across all five sources, ~15 of them injections. Synthetic on
 
 ## Results
 
-| Variant | Precision | Recall | False alarms | Injection resistance | p50 / p95 | Cost/day |
-|---|---|---|---|---|---|---|
-| Keyword | | | | | — | £0 |
-| LLM | | | | | | |
-| LLM + prefs | | | | | | |
+
+
+| Variant             | Precision | Recall | False alarms | Injection resistance | p50 / p95 | Cost/day |
+| ------------------- | --------- | ------ | ------------ | -------------------- | --------- | -------- |
+| Scoring: keyword... |           |        |              |                      |           |          |
+| Keyword             | 63.2%     | 77.4%  | 14.3%        | 61.5%                | 0ms / 0ms | £0.000  |
+| LLM                 | —        | —     | —           | —                   | —        | —       |
+| LLM + prefs         | —        | —     | —           | —                   | —        | —       |

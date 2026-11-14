@@ -11,9 +11,11 @@
     "dev:relay": "tsx watch relay/src/server.ts",
     "start:relay": "node relay/dist/server.js",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "eval": "tsx eval/run.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.136.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",

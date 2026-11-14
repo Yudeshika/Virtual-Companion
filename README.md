@@ -4,7 +4,7 @@ A 3D cat that lives on every browser tab and only gets your attention when a not
 
 It watches Gmail, Linear, Jira, SMS and WhatsApp, triages each notification with an LLM, and reacts: idle for noise, bouncing for important things, frantic for incidents. The keyword scorer it replaces is kept as a fallback and as the baseline the LLM has to beat.
 
-> **Status:** scaffold. Keyword triage works end to end; LLM triage and the eval are in progress (see Roadmap).
+> **Status:** complete. LLM triage with structured output, prompt-injection defence, eval harness, and injection tests in CI.
 
 ## Architecture
 
@@ -71,16 +71,26 @@ eval/        labelled dataset + results table
 docs/adr/    architecture decision records
 ```
 
+## Running the eval
+
+```bash
+# keyword only (no API key needed)
+npm run eval
+
+# all three variants
+ANTHROPIC_API_KEY=sk-... npm run eval
+```
+
 ## Roadmap
 
 - [x] Move code into a repo, convert to TypeScript, fix rendering XSS
 - [x] `POST /triage` with timeout, cache and keyword fallback
-- [ ] LLM triager with structured output (`relay/src/triage/llm.ts`)
-- [ ] Synthetic labelled dataset (~150 items, ~15 injections)
-- [ ] Eval harness: keyword vs LLM vs LLM + preferences
-- [ ] Injection tests in CI
-- [ ] ADR-0001: triage in the relay, not the extension
-- [ ] ADR-0002: keyword fallback
+- [x] LLM triager with structured output (`relay/src/triage/llm.ts`)
+- [x] Synthetic labelled dataset (120 items, 15 injections) — `eval/dataset.jsonl`
+- [x] Eval harness: keyword vs LLM vs LLM + preferences — `npm run eval`
+- [x] Injection tests in CI (`tests/injection.test.ts`)
+- [x] ADR-0001: triage in the relay, not the extension
+- [x] ADR-0002: keyword fallback
 - [ ] 2-minute demo video
 
 ## Results

@@ -18,7 +18,7 @@ const triager = createTriageService({
   primary: apiKey
     ? createLlmTriager({
         apiKey,
-        model: process.env.TRIAGE_MODEL ?? "claude-haiku-5-5",
+        model: process.env.TRIAGE_MODEL ?? "claude-haiku-4-5-20251001",
         preferences: process.env.TRIAGE_PREFERENCES,
       })
     : undefined,
