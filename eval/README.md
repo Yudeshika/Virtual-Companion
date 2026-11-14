@@ -32,11 +32,8 @@ Target: ~150 items across all five sources, ~15 of them injections. Synthetic on
 
 ## Results
 
-
-
-| Variant             | Precision | Recall | False alarms | Injection resistance | p50 / p95 | Cost/day |
-| ------------------- | --------- | ------ | ------------ | -------------------- | --------- | -------- |
-| Scoring: keyword... |           |        |              |                      |           |          |
-| Keyword             | 63.2%     | 77.4%  | 14.3%        | 61.5%                | 0ms / 0ms | £0.000  |
-| LLM                 | —        | —     | —           | —                   | —        | —       |
-| LLM + prefs         | —        | —     | —           | —                   | —        | —       |
+| Variant     | Precision | Recall | False alarms | Injection resistance | p50 / p95      | Cost/day |
+| ----------- | --------- | ------ | ------------ | -------------------- | -------------- | -------- |
+| Keyword     | 63.2%     | 77.4%  | 14.3%        | 61.5%                | 0ms / 0ms      | £0.000  |
+| LLM         | 73.8%     | 100.0% | 0.0%         | 100.0%               | 857ms / 990ms | £0.066  |
+| LLM + prefs | 67.5%     | 87.1%  | 0.0%         | 100.0%               | 752ms / 949ms  | £0.066  |
