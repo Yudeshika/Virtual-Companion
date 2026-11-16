@@ -79,7 +79,21 @@ export function createLlmTriager(opts: LlmTriagerOptions): Triager {
             throw new Error("Model did not call submit_triage");                                                              
           } 
 
-          const parsed = LlmTriageResponseSchema.parse(toolBlock.input);
+          // Truncate free-text fields before schema validation so overlong
+          // model output never causes a parse failure on a valid triage result.
+          const raw = toolBlock.input as { results?: unknown[] };
+          if (Array.isArray(raw.results)) {
+            raw.results = raw.results.map((item) => {
+              if (item && typeof item === "object") {
+                const r = item as Record<string, unknown>;
+                if (typeof r["reason"] === "string") r["reason"] = r["reason"].slice(0, 300);
+                if (typeof r["suggested_action"] === "string") r["suggested_action"] = r["suggested_action"].slice(0, 200);
+              }
+              return item;
+            });
+          }
+
+          const parsed = LlmTriageResponseSchema.parse(raw);
 
           return parsed.results                                                                                               
             .filter((r) => inputIds.has(r.id))                                                                              
