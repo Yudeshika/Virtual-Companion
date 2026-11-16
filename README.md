@@ -55,10 +55,10 @@ npm run build
 
 ```bash
 cp relay/.env.example relay/.env   # fill in the values
-npm run dev:relay                  # http://localhost:3000
+PORT=3001 npm run dev:relay        # http://localhost:3001
 ```
 
-For Twilio locally, expose the port with `npx ngrok http 3000` and point your Twilio number's webhook at `<ngrok-url>/webhook/sms`.
+For Twilio locally, expose the port with `npx ngrok http 3001` and point your Twilio sandbox webhook at `<ngrok-url>/webhook/whatsapp`. See [docs/setup.md](docs/setup.md) for the full walkthrough.
 
 ## Project layout
 
@@ -83,6 +83,7 @@ ANTHROPIC_API_KEY=sk-... npm run eval
 
 ## Roadmap
 
+### Phase 1 — LLM triage (complete)
 - [x] Move code into a repo, convert to TypeScript, fix rendering XSS
 - [x] `POST /triage` with timeout, cache and keyword fallback
 - [x] LLM triager with structured output (`relay/src/triage/llm.ts`)
@@ -92,6 +93,12 @@ ANTHROPIC_API_KEY=sk-... npm run eval
 - [x] ADR-0001: triage in the relay, not the extension
 - [x] ADR-0002: keyword fallback
 - [ ] 2-minute demo video
+
+### Phase 2 — Share with others (in progress)
+- [ ] Deploy relay to Render (always-on public URL, free tier)
+- [ ] Per-user rate limiting on the relay (protect API quota)
+- [ ] Publish extension to Chrome Web Store (no Developer mode needed)
+- [ ] Onboarding wizard in the options page (guided first-run setup)
 
 ## Results
 
