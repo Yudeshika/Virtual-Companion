@@ -8,7 +8,7 @@
     "build": "npm run build:extension && npm run build:relay",
     "build:extension": "node scripts/build-extension.mjs",
     "build:relay": "esbuild relay/src/server.ts --bundle --platform=node --format=esm --packages=external --outfile=relay/dist/server.js",
-    "dev:relay": "tsx watch relay/src/server.ts",
+    "dev:relay": "tsx watch --env-file=relay/.env relay/src/server.ts",
     "start:relay": "node relay/dist/server.js",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
