@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import express, { type NextFunction, type Request, type Response } from "express";
 import cors from "cors";
 import twilio from "twilio";
+import { rateLimit } from "express-rate-limit";
 import { scoreMessage } from "../../shared/keyword-scorer";
 import { TriageRequestSchema } from "../../shared/schema";
 import type { NormalisedNotification } from "../../shared/types";
@@ -121,7 +122,16 @@ export function createApp(config: RelayConfig) {
     res.json({ ok: true, remaining: messages.length });
   });
 
-  app.post("/triage", requireReadSecret, async (req, res) => {
+  // TODO: apply rate limiting to /messages before opening to the public.
+  const triageLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 30,
+    standardHeaders: "draft-8",
+    legacyHeaders: false,
+    message: { error: "Too many triage requests, please try again later." },
+  });
+
+  app.post("/triage", requireReadSecret, triageLimiter, async (req, res) => {
     const parsed = TriageRequestSchema.safeParse(req.body);
     if (!parsed.success) {
       res.status(400).json({ error: "Invalid request", issues: parsed.error.issues });
